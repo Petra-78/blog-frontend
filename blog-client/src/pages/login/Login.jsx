@@ -28,7 +28,7 @@ export default function Login() {
       );
 
       if (!res.ok) {
-        throw new Error("Invalid credentials");
+        throw new Error("Invalid email or password");
       }
 
       const data = await res.json();
