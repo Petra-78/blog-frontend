@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { getPosts } from "../../services/api";
 import { Link } from "react-router";
 import { Loading } from "../Loading/Loading";
-import Comments from "../Comments/Comments";
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
