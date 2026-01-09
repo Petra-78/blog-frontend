@@ -1,5 +1,4 @@
 export async function getPosts() {
-  debugger;
   const res = await fetch(
     "https://blog-api-production-323f.up.railway.app/posts"
   );
@@ -8,10 +7,17 @@ export async function getPosts() {
 }
 
 export async function getPost(id) {
-  debugger;
   const res = await fetch(
     `https://blog-api-production-323f.up.railway.app/posts/${id}`
   );
   const data = await res.json();
   return data.post;
+}
+
+export async function getComments(id) {
+  const res = await fetch(
+    `https://blog-api-production-323f.up.railway.app/posts/${id}/comments`
+  );
+  const data = await res.json();
+  return data.comments;
 }
