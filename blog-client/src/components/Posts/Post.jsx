@@ -7,9 +7,9 @@ import { CommentForm } from "../Comments/CommentForm";
 import { useAuth } from "../../context/authContext";
 
 export default function Post() {
-  debugger;
   const [post, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const params = useParams();
   const id = params.id;
 
