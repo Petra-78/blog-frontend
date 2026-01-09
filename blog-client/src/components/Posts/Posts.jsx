@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { getPosts } from "../../services/api";
-import { Link, useParams } from "react-router";
+import { Link } from "react-router";
 import { Loading } from "../Loading/Loading";
+import Comments from "../Comments/Comments";
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
@@ -33,7 +34,7 @@ export default function Posts() {
           <Link to={`/posts/${post.id}`}>
             <div key={post.id}>
               <h2>{post.title}</h2>
-              <p>{post.body}</p>
+              <p>{post.content}</p>
             </div>
           </Link>
         ))}
