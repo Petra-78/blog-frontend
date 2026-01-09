@@ -5,6 +5,7 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import AdminLogin from "./pages/login/AdminLogin";
 import Posts from "./components/Posts/Posts";
+import Post from "./components/Posts/Post";
 
 const routes = [
   {
@@ -14,6 +15,7 @@ const routes = [
     children: [
       { index: true, element: <Home /> },
       { path: "/posts", element: <Posts /> },
+      { path: "posts/:id", element: <Post /> },
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Signup /> },
       { path: "/admin", element: <AdminLogin /> },
