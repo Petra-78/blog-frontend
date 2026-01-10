@@ -11,9 +11,31 @@ export default function Signup() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  const passwordRegex =
+    /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{6,}$/;
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+
+    if (username.trim().length < 3) {
+      setError("Username must be at least 3 characters long.");
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      setError(
+        "Password must be at least 6 characters long, contain one uppercase letter and one special character."
+      );
+      return;
+    }
 
     try {
       const res = await fetch(
@@ -27,11 +49,11 @@ export default function Signup() {
         }
       );
 
-      if (!res.ok) {
-        throw new Error("Signup failed");
-      }
-
       const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Signup failed");
+      }
 
       if (data.token) {
         login(data.token, data.user);
@@ -48,6 +70,7 @@ export default function Signup() {
   return (
     <div>
       <h2>Signup</h2>
+
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <form onSubmit={handleSubmit}>
