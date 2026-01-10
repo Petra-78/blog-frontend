@@ -6,7 +6,6 @@ export function CommentForm({ postId }) {
   const [content, setContent] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const { token } = useAuth();
 
@@ -32,11 +31,9 @@ export function CommentForm({ postId }) {
         throw new Error("Failed to post comment");
       }
 
-      const newComment = await res.json();
-
       setContent("");
       setLoading(false);
-      navigate(`/posts/${postId}`);
+      location.reload();
     } catch (err) {
       console.error(err);
       setError(err.message);
