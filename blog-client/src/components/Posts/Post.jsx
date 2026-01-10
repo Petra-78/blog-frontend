@@ -9,6 +9,7 @@ import { useAuth } from "../../context/authContext";
 export default function Post() {
   const [post, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [comments, setComments] = useState([]);
 
   const params = useParams();
   const id = params.id;
@@ -20,6 +21,7 @@ export default function Post() {
       try {
         const postData = await getPost(id);
         setPost(postData);
+        setComments(postData.comments || []);
       } catch (err) {
         console.error(err);
       } finally {
@@ -28,7 +30,7 @@ export default function Post() {
     }
 
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <div>
@@ -38,13 +40,18 @@ export default function Post() {
           <h2>{post.title}</h2>
           <p>{post.content}</p>
           {isAuthenticated ? (
-            <CommentForm postId={post.id} />
+            <CommentForm
+              postId={post.id}
+              onCommentCreated={(newComment) => {
+                setComments((prev) => [...prev, newComment]);
+              }}
+            />
           ) : (
             <Link to={"/login"}>
               <button>Log in to leave a comment</button>
             </Link>
           )}
-          <Comments />
+          <Comments comments={comments} setComments={setComments} />
         </div>
       )}
       {loading && <Loading />}
