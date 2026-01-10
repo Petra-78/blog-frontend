@@ -2,14 +2,12 @@ import { useContext, useState } from "react";
 import codingImage from "../../assets/coding.jpg";
 import Posts from "../../components/Posts/Posts";
 import { useAuth } from "../../context/authContext";
-import Logout from "../../components/Logout/Logout";
 
 export default function Home() {
   const { isAuthenticated } = useAuth();
 
   return (
     <div>
-      {isAuthenticated && <Logout />}
       <div>
         <h1>Welcome to From Scratch!</h1>
         <p>
