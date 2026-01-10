@@ -5,9 +5,7 @@ import { Loading } from "../Loading/Loading";
 import { useAuth } from "../../context/authContext";
 import { DeleteComment } from "./DeleteComment";
 
-export default function Comments() {
-  debugger;
-  const [comments, setComments] = useState([]);
+export default function Comments({ comments, setComments }) {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const userId = user?.id;
@@ -19,8 +17,6 @@ export default function Comments() {
       try {
         const commentsData = await getComments(id);
         setComments(commentsData);
-
-        console.log(comments);
       } catch (err) {
         console.error(err);
       } finally {
