@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { useAuth } from "../../context/authContext";
 
 export default function Login() {
-  debugger;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -32,7 +31,7 @@ export default function Login() {
       }
 
       const data = await res.json();
-      login(data.token);
+      login(data.token, data.user);
 
       navigate("/");
     } catch (err) {

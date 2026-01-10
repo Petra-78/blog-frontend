@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { useAuth } from "../../context/authContext";
 
 export default function Signup() {
-  debugger;
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +34,7 @@ export default function Signup() {
       const data = await res.json();
 
       if (data.token) {
-        login(data.token);
+        login(data.token, data.user);
         navigate("/");
       } else {
         navigate("/login");
