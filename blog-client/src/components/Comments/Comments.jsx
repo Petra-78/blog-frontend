@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 import { getComments } from "../../services/api";
 import { useParams } from "react-router";
 import { Loading } from "../Loading/Loading";
+import { useAuth } from "../../context/authContext";
+import { DeleteComment } from "./DeleteComment";
 
 export default function Comments() {
+  debugger;
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
+  const userId = user?.id;
   const params = useParams();
   const id = params.id;
 
@@ -23,7 +28,7 @@ export default function Comments() {
       }
     }
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <div>
@@ -34,6 +39,16 @@ export default function Comments() {
           <div key={comment.id}>
             <h2>{comment.user.username}</h2>
             <p>{comment.content}</p>
+            {userId === comment.userId && (
+              <DeleteComment
+                commentId={comment.id}
+                onDeleted={(id) => {
+                  setComments((prev) =>
+                    prev.filter((comment) => comment.id !== id)
+                  );
+                }}
+              />
+            )}
           </div>
         ))}
       {loading && <Loading />}
