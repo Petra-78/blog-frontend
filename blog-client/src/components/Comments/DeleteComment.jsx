@@ -1,7 +1,6 @@
 import { useAuth } from "../../context/authContext";
 
 export function DeleteComment({ commentId, onDeleted }) {
-  debugger;
   const { token } = useAuth();
 
   const handleDelete = async () => {
