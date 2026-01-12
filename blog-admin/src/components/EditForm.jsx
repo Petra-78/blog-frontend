@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/authContext";
 import { useParams } from "react-router";
 import { getPost } from "../services/api";
-import { Editor } from "@tinymce/tinymce-react";
+import TextEditor from "./Editor";
 
 export default function EditForm() {
   const { token, user } = useAuth();
@@ -87,38 +87,11 @@ export default function EditForm() {
               required
             />
 
-            <Editor
-              apiKey="uy0676z6x54znnh50cpud71woi6azzuuj5x3vsda0i7wt1cq"
-              init={{
-                plugins: [
-                  "anchor",
-                  "autolink",
-                  "charmap",
-                  "codesample",
-                  "emoticons",
-                  "link",
-                  "lists",
-                  "media",
-                  "searchreplace",
-                  "table",
-                  "visualblocks",
-                  "wordcount",
-                ],
-                toolbar:
-                  "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
-                tinycomments_mode: "embedded",
-                tinycomments_author: "Petra P.",
-                mergetags_list: [
-                  { value: "First.Name", title: "First Name" },
-                  { value: "Email", title: "Email" },
-                ],
-                ai_request: (request, respondWith) =>
-                  respondWith.string(() =>
-                    Promise.reject("See docs to implement AI Assistant")
-                  ),
-                uploadcare_public_key: "f22a1dd2425011785fdf",
-              }}
-              initialValue={post.content}
+            <TextEditor
+              value={post.content}
+              onChange={(newContent) =>
+                setPost((prev) => ({ ...prev, content: newContent }))
+              }
             />
 
             <label>
@@ -135,7 +108,6 @@ export default function EditForm() {
               />
               Published
             </label>
-
             <div>
               <button type="submit" disabled={loading}>
                 {loading ? "Saving..." : "Save"}
