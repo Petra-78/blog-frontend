@@ -1,6 +1,7 @@
 import PostList from "./components/PostList";
 import EditForm from "./components/EditForm";
 import Login from "./components/Login";
+import NewPost from "./components/NewPost";
 import App from "./App";
 
 const routes = [
@@ -17,6 +18,10 @@ const routes = [
       {
         path: "/admin",
         element: <Login />,
+      },
+      {
+        path: "/new-post",
+        element: <NewPost />,
       },
     ],
   },
