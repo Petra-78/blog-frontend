@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/authContext";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { getPost } from "../services/api";
 import TextEditor from "./Editor";
 
@@ -10,6 +10,7 @@ export default function EditForm() {
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -31,7 +32,6 @@ export default function EditForm() {
     e.preventDefault();
     setError(null);
     setLoading(true);
-    console.log({ token, user });
 
     try {
       debugger;
@@ -51,7 +51,6 @@ export default function EditForm() {
         }
       );
       const data = await res.json();
-      console.log(data);
 
       if (!res.ok) {
         throw new Error(data.message || "Failed to save post");
@@ -61,6 +60,7 @@ export default function EditForm() {
       setError(err.message);
     } finally {
       setLoading(false);
+      navigate("/");
     }
   };
 
@@ -112,7 +112,9 @@ export default function EditForm() {
               <button type="submit" disabled={loading}>
                 {loading ? "Saving..." : "Save"}
               </button>
-              <button type="button">Cancel</button>
+              <button type="button" onClick={() => navigate("/")}>
+                Cancel
+              </button>
             </div>
           </form>
         </>
