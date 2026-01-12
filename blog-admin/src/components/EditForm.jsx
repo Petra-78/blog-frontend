@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/authContext";
 import { useParams } from "react-router";
 import { getPost } from "../services/api";
+import { Editor } from "@tinymce/tinymce-react";
 
 export default function EditForm() {
   const { token, user } = useAuth();
@@ -66,7 +67,6 @@ export default function EditForm() {
   return (
     <div>
       {loading && <p>Loading...</p>}
-      {!post && <p>Post not found</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {post && (
         <>
@@ -87,19 +87,38 @@ export default function EditForm() {
               required
             />
 
-            <label htmlFor="content">Content</label>
-            <textarea
-              id="content"
-              name="content"
-              value={post.content}
-              onChange={(e) =>
-                setPost((prev) => ({
-                  ...prev,
-                  content: e.target.value,
-                }))
-              }
-              rows={8}
-              required
+            <Editor
+              apiKey="uy0676z6x54znnh50cpud71woi6azzuuj5x3vsda0i7wt1cq"
+              init={{
+                plugins: [
+                  "anchor",
+                  "autolink",
+                  "charmap",
+                  "codesample",
+                  "emoticons",
+                  "link",
+                  "lists",
+                  "media",
+                  "searchreplace",
+                  "table",
+                  "visualblocks",
+                  "wordcount",
+                ],
+                toolbar:
+                  "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+                tinycomments_mode: "embedded",
+                tinycomments_author: "Petra P.",
+                mergetags_list: [
+                  { value: "First.Name", title: "First Name" },
+                  { value: "Email", title: "Email" },
+                ],
+                ai_request: (request, respondWith) =>
+                  respondWith.string(() =>
+                    Promise.reject("See docs to implement AI Assistant")
+                  ),
+                uploadcare_public_key: "f22a1dd2425011785fdf",
+              }}
+              initialValue={post.content}
             />
 
             <label>
