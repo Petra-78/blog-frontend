@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getPosts } from "../services/api";
 import { useAuth } from "../context/authContext";
 import { Link } from "react-router";
-import { togglePostPublished } from "../services/api";
+import { togglePostPublished, deletePost } from "../services/api";
 
 export default function PostList() {
   const [posts, setPosts] = useState([]);
@@ -31,14 +31,30 @@ export default function PostList() {
     }
   };
 
+  const handleDelete = async (postId) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this post? This cannot be undone."
+    );
+
+    if (!confirmed) return;
+    try {
+      await deletePost(postId, token);
+
+      setPosts((prev) => prev.filter((post) => post.id !== postId));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div>
+      {posts.length === 0 && <p>No posts yet. Create one!</p>}
       {posts.map((post) => (
         <div key={post.id}>
           <h3>{post.title}</h3>
-          <p>{post.content}</p>
+          <div dangerouslySetInnerHTML={{ __html: post.content }} />
           <p>
-            Status:{" "}
+            Status:
             <button onClick={() => handleToggle(post)}>
               {post.published ? "Published" : "Draft"}
             </button>
@@ -46,6 +62,7 @@ export default function PostList() {
           <Link to={`/edit/${post.id}`}>
             <button>Edit</button>
           </Link>
+          <button onClick={() => handleDelete(post.id)}>Delete</button>
         </div>
       ))}
     </div>
