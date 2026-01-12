@@ -6,13 +6,20 @@ import { togglePostPublished, deletePost } from "../services/api";
 
 export default function PostList() {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { token } = useAuth();
 
   useEffect(() => {
     debugger;
     async function fetchPosts() {
-      const data = await getPosts();
-      setPosts(data);
+      try {
+        const data = await getPosts();
+        setPosts(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     }
     fetchPosts();
   }, []);
@@ -48,7 +55,8 @@ export default function PostList() {
 
   return (
     <div>
-      {posts.length === 0 && <p>No posts yet. Create one!</p>}
+      {loading && <p>Loading...</p>}
+      {!loading && posts.length === 0 && <p>No posts yet. Create one!</p>}
       {posts.map((post) => (
         <div key={post.id}>
           <h3>{post.title}</h3>
