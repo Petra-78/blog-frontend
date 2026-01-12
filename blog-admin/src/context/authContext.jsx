@@ -8,7 +8,6 @@ export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    debugger;
     const storedToken = localStorage.getItem("jwt");
     const storedUser = localStorage.getItem("user");
 
@@ -20,7 +19,6 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = (newToken, userData) => {
-    debugger;
     localStorage.setItem("jwt", newToken);
     localStorage.setItem("user", JSON.stringify(userData));
     setToken(newToken);
