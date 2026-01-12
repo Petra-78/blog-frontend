@@ -38,7 +38,7 @@ export default function Post() {
       {post && (
         <div key={post.id}>
           <h2>{post.title}</h2>
-          <p>{post.content}</p>
+          <div dangerouslySetInnerHTML={{ __html: post.content }} />
           {isAuthenticated ? (
             <CommentForm
               postId={post.id}
