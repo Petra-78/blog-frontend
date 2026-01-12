@@ -70,3 +70,39 @@ export async function deletePost(id, token) {
 
   return data;
 }
+
+export async function getComments(token) {
+  debugger;
+  const res = await fetch(
+    `https://blog-api-production-323f.up.railway.app/comments`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const data = await res.json();
+  return data;
+}
+
+export async function deleteComment(id, token) {
+  debugger;
+  const res = await fetch(
+    `https://blog-api-production-323f.up.railway.app/comments/${id}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Failed to delete post");
+  }
+
+  return data;
+}
