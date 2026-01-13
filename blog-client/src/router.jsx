@@ -4,7 +4,7 @@ import Error from "./components/Error/Error";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Posts from "./components/Posts/Posts";
-import Post from "./components/Posts/Post";
+import Post from "./components/Posts/Post/Post";
 
 const routes = [
   {
