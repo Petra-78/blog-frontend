@@ -1,4 +1,5 @@
 .wrapper {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,12 +11,20 @@
 
 .intro {
   display: flex;
+  max-width: 80vw;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 1rem;
+  gap: 10rem;
   width: 100%;
-  padding: 0 6rem 2rem 6rem;
+}
+
+.introWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  padding-bottom: 4rem;
+  width: 100vw;
   border-bottom: 2px solid var(--burgundy);
 }
 
@@ -30,11 +39,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
 }
 
 .description {
+  text-align: justify;
   font-size: 1.1rem;
   line-height: 1.6;
+  width: 100%;
   color: var(--ink);
 }
 
@@ -69,10 +81,6 @@ h2 {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-  }
-
-  .description {
-    max-width: 60%;
   }
 }
 

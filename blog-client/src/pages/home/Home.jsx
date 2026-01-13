@@ -9,23 +9,25 @@ export default function Home() {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.intro}>
-        <div className={styles.text}>
-          <h1 className={styles.title}>Welcome to From Scratch!</h1>
-          <p className={styles.description}>
-            This blog is a collection of thoughts, experiences, and experiments
-            of my journey. From web development projects to lessons learned
-            along the way, you can find anything. It’s a mix of code, curiosity,
-            and everyday reflections.
-          </p>
-        </div>
+      <div className={styles.introWrapper}>
+        <div className={styles.intro}>
+          <div className={styles.text}>
+            <h1 className={styles.title}>Welcome to From Scratch!</h1>
+            <p className={styles.description}>
+              This blog is a collection of thoughts, experiences, and
+              experiments of my journey. From web development projects to
+              lessons learned along the way, you can find anything. It’s a mix
+              of code, curiosity, and everyday reflections.
+            </p>
+          </div>
 
-        <div className={styles.imageWrapper}>
-          <img
-            src={codingImage}
-            alt="Coding on a computer"
-            className={styles.image}
-          />
+          <div className={styles.imageWrapper}>
+            <img
+              src={codingImage}
+              alt="Coding on a computer"
+              className={styles.image}
+            />
+          </div>
         </div>
       </div>
 
