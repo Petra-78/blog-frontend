@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { Loading } from "../Loading/Loading";
 import truncate from "truncate-html";
 import styles from "./Posts.module.css";
+import placeholderImg from "../../assets/placeholder.jpg";
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
@@ -25,15 +26,29 @@ export default function Posts() {
     fetchData();
   }, []);
 
+  function formatDate(isoString) {
+    return new Intl.DateTimeFormat("hu-HU", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(new Date(isoString));
+  }
+
   return (
-    <div className={styles.wrapper}>
+    <>
       {!posts && <p className={styles.empty}>No posts yet.</p>}
       {loading && <Loading />}
-      {posts &&
-        posts.length > 0 &&
-        posts.map((post) => (
-          <Link to={`/posts/${post.id}`} key={post.id} className={styles.link}>
+      <div className={styles.wrapper}>
+        {posts &&
+          posts.length > 0 &&
+          posts.map((post) => (
             <div className={styles.postCard}>
+              <img src={placeholderImg} alt="placeholder image" />
+              <div className={styles.author}>
+                <h3>Petra P.</h3>
+                <p>{formatDate(post.postedAt)}</p>
+              </div>
+
               <h2 className={styles.title}>{post.title}</h2>
               <div
                 className={styles.excerpt}
@@ -41,9 +56,16 @@ export default function Posts() {
                   __html: truncate(post.content, 100, { ellipsis: "..." }),
                 }}
               />
+              <Link
+                to={`/posts/${post.id}`}
+                key={post.id}
+                className={styles.link}
+              >
+                Read more
+              </Link>
             </div>
-          </Link>
-        ))}
-    </div>
+          ))}
+      </div>
+    </>
   );
 }
