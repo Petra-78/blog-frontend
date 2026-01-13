@@ -11,6 +11,7 @@ export default function Post() {
   const [post, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
   const [comments, setComments] = useState([]);
+  console.log(post);
 
   const params = useParams();
   const id = params.id;
@@ -33,6 +34,20 @@ export default function Post() {
     fetchData();
   }, [id]);
 
+  function formatDate(isoString) {
+    if (!isoString) return "";
+
+    const date = new Date(isoString);
+
+    if (isNaN(date)) return "";
+
+    return new Intl.DateTimeFormat("hu-HU", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(date);
+  }
+
   return (
     <div className={styles.wrapper}>
       {!post && <p className={styles.notFound}>Post not found.</p>}
@@ -40,6 +55,10 @@ export default function Post() {
       {post && (
         <div key={post.id} className={styles.post}>
           <h2 className={styles.title}>{post.title}</h2>
+          <div className={styles.author}>
+            <h3>Petra P.</h3>
+            <p>{formatDate(post.postedAt)}</p>
+          </div>
           <div
             className={styles.content}
             dangerouslySetInnerHTML={{ __html: post.content }}
