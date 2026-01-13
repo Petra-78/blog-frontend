@@ -3,7 +3,9 @@ import { getComments } from "../../services/api";
 import { useParams } from "react-router";
 import { Loading } from "../Loading/Loading";
 import { useAuth } from "../../context/authContext";
-import { DeleteComment } from "./DeleteComment";
+import { DeleteComment } from "./DeleteComments/DeleteComment";
+
+import styles from "./Comments.module.css";
 
 export default function Comments({ comments, setComments }) {
   const [loading, setLoading] = useState(true);
@@ -26,27 +28,50 @@ export default function Comments({ comments, setComments }) {
     fetchData();
   }, [id]);
 
+  function formatDate(isoString) {
+    return new Intl.DateTimeFormat("hu-HU", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(new Date(isoString));
+  }
+
   return (
-    <div>
-      {!comments && <p>Be the first to write a commment.</p>}
+    <div className={styles.wrapper}>
+      {!comments && (
+        <p className={styles.empty}>Be the first to write a comment.</p>
+      )}
+
       {comments &&
         comments.length > 0 &&
         comments.map((comment) => (
-          <div key={comment.id}>
-            <h2>{comment.user.username}</h2>
-            <p>{comment.content}</p>
+          <div key={comment.id} className={styles.comment}>
+            <div className={styles.header}>
+              <h2 className={styles.username}>{comment.user.username}</h2>
+              <span className={styles.date}>
+                {formatDate(comment.postedAt)}
+              </span>
+            </div>
+
+            <p className={styles.content}>{comment.content}</p>
+
             {userId === comment.userId && (
-              <DeleteComment
-                commentId={comment.id}
-                onDeleted={(id) => {
-                  setComments((prev) =>
-                    prev.filter((comment) => comment.id !== id)
-                  );
-                }}
-              />
+              <div className={styles.actions}>
+                <DeleteComment
+                  commentId={comment.id}
+                  onDeleted={(id) => {
+                    setComments((prev) =>
+                      prev.filter((comment) => comment.id !== id)
+                    );
+                  }}
+                />
+              </div>
             )}
           </div>
         ))}
+
       {loading && <Loading />}
     </div>
   );
