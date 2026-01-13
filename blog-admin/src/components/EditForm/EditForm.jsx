@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../../context/authContext";
 import { useParams, useNavigate } from "react-router";
-import { getPost } from "../services/api";
-import TextEditor from "./Editor";
+import { getPost } from "../../services/api";
+import TextEditor from "../Editor";
+import styles from "./EditForm.module.css";
 
 export default function EditForm() {
   const { token, user } = useAuth();
@@ -65,26 +66,27 @@ export default function EditForm() {
   };
 
   return (
-    <div>
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <div className={styles.wrapper}>
+      {loading && <p className={styles.info}>Loading...</p>}
+      {error && <p className={styles.error}>{error}</p>}
+
       {post && (
         <>
-          <h3>Edit post</h3>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="title">Title</label>
+          <h3 className={styles.heading}>Edit Post</h3>
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <label htmlFor="title" className={styles.label}>
+              Title
+            </label>
             <input
               type="text"
               id="title"
               name="title"
               value={post.title}
               onChange={(e) =>
-                setPost((prev) => ({
-                  ...prev,
-                  title: e.target.value,
-                }))
+                setPost((prev) => ({ ...prev, title: e.target.value }))
               }
               required
+              className={styles.input}
             />
 
             <TextEditor
@@ -94,25 +96,28 @@ export default function EditForm() {
               }
             />
 
-            <label>
+            <label className={styles.checkboxLabel}>
               <input
                 type="checkbox"
                 name="published"
                 checked={post.published}
                 onChange={(e) =>
-                  setPost((prev) => ({
-                    ...prev,
-                    published: e.target.checked,
-                  }))
+                  setPost((prev) => ({ ...prev, published: e.target.checked }))
                 }
+                className={styles.checkbox}
               />
               Published
             </label>
-            <div>
-              <button type="submit" disabled={loading}>
+
+            <div className={styles.actions}>
+              <button type="submit" disabled={loading} className={styles.save}>
                 {loading ? "Saving..." : "Save"}
               </button>
-              <button type="button" onClick={() => navigate("/")}>
+              <button
+                type="button"
+                onClick={() => navigate("/")}
+                className={styles.cancel}
+              >
                 Cancel
               </button>
             </div>
