@@ -49,7 +49,7 @@ export function CommentForm({ postId, onCommentCreated }) {
       {error && <p className={styles.error}>{error}</p>}
 
       <label className={styles.label} htmlFor="content">
-        Message
+        Leave a comment
       </label>
 
       <textarea
