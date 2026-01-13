@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../../context/authContext";
+import styles from "./Login.module.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -41,51 +42,36 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <div className={styles.wrapper}>
+      <div className={styles.card}>
+        <h2 className={styles.title}>Login</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <br />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <br />
-        <button type="submit">Login</button>
-      </form>
+        {error && <p className={styles.error}>{error}</p>}
+
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <input
+            className={styles.input}
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <input
+            className={styles.input}
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button className={styles.button} type="submit">
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
-
-// export default function Login() {
-//   return (
-//     <div>
-//       <div>
-//         <h1>Admin login</h1>
-//         <form
-//           action="POST"
-//           method="https://blog-api-production-323f.up.railway.app/login"
-//         >
-//           <label htmlFor="email">Email</label>
-//           <input type="text" name="email" id="email" />
-
-//           <label htmlFor="password">Password</label>
-//           <input type="text" name="password" id="password" />
-
-//           <button type="submit">Submit</button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
