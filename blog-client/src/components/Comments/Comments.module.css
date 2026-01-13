@@ -5,8 +5,7 @@
   justify-content: baseline;
   gap: 0.8rem;
   margin-top: 1rem;
-  width: 90%;
-  max-width: 600px;
+  width: 100%;
   min-width: 300px;
 }
 
@@ -17,12 +16,12 @@
   padding: 1rem;
   border: 2px dashed var(--ink);
   border-radius: 14px;
-  background: var(--soft-bg);
+  background: var(--white);
   width: 100%;
 }
 
 .comment {
-  background: var(--soft-bg);
+  background: var(--white);
   border: 2px solid var(--ink);
   border-radius: 16px;
   padding: 1rem;
@@ -69,7 +68,7 @@
 }
 
 .delete {
-  background: var(--soft-bg);
+  background: var(--white);
   color: var(--danger);
   border: 2px solid var(--danger);
   border-radius: 999px;
