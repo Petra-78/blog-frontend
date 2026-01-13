@@ -40,7 +40,7 @@ export default function Comments({ comments, setComments }) {
 
   return (
     <div className={styles.wrapper}>
-      {!comments && (
+      {comments.length === 0 && (
         <p className={styles.empty}>Be the first to write a comment.</p>
       )}
 
@@ -71,8 +71,6 @@ export default function Comments({ comments, setComments }) {
             )}
           </div>
         ))}
-
-      {loading && <Loading />}
     </div>
   );
 }
