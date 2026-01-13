@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../../context/authContext";
+import styles from "./Signup.module.css";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -68,41 +69,60 @@ export default function Signup() {
   };
 
   return (
-    <div>
-      <h2>Signup</h2>
+    <div className={styles.wrapper}>
+      <div className={styles.card}>
+        <h2 className={styles.title}>Sign Up</h2>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className={styles.error}>{error}</p>}
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor="username">
+              Username
+            </label>
+            <input
+              className={styles.input}
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
 
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor="email">
+              Email
+            </label>
+            <input
+              className={styles.input}
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor="password">
+              Password
+            </label>
+            <input
+              className={styles.input}
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-        <button type="submit">Sign Up</button>
-      </form>
+          <button className={styles.button} type="submit">
+            Sign Up
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
