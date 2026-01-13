@@ -1,8 +1,10 @@
 .wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
   gap: 1rem;
   width: 80%;
+  padding: 3rem 0;
 }
 
 .empty {
@@ -17,16 +19,54 @@
 
 .link {
   text-decoration: none;
-  width: 100%;
+  background-color: var(--burgundy);
+  color: var(--white);
+  border-radius: 20px;
+  padding: 5px 15px;
+  margin-top: 20px;
+  align-self: flex-end;
+}
+
+.link:hover {
+  background-color: var(--golden);
+  color: var(--ink);
 }
 
 .postCard {
+  display: flex;
+  flex-direction: column;
+
   background: var(--white);
   border: 2px solid var(--ink);
   border-radius: 16px;
-  padding: 1rem;
+  padding: 1.5rem;
   box-shadow: 3px 3px 0 var(--ink);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.author {
+  display: flex;
+  gap: 10px;
+}
+
+.author h3 {
+  color: var(--burgundy);
+  font-size: 0.8rem;
+  align-content: center;
+  font-weight: 600;
+  background-color: #fcc0c0;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+
+.author p {
+  color: var(--ink);
+  font-size: 0.8rem;
+  align-content: center;
+  font-weight: 200;
+  background-color: #c0b2b2;
+  padding: 2px 10px;
+  border-radius: 20px;
 }
 
 .postCard:hover {
