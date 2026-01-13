@@ -1,10 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router";
-import { getPost } from "../../services/api";
-import { Loading } from "../Loading/Loading";
-import Comments from "../Comments/Comments";
-import { CommentForm } from "../Comments/CommentForm";
-import { useAuth } from "../../context/authContext";
+import { getPost } from "../../../services/api";
+import { Loading } from "../../Loading/Loading";
+import Comments from "../../Comments/Comments";
+import { CommentForm } from "../../Comments/CommentsForm/CommentForm";
+import { useAuth } from "../../../context/authContext";
+import styles from "./Post.module.css";
 
 export default function Post() {
   const [post, setPost] = useState([]);
@@ -33,12 +34,19 @@ export default function Post() {
   }, [id]);
 
   return (
-    <div>
-      {!post && <p>Post not found.</p>}
+    <div className={styles.wrapper}>
+      {!post && <p className={styles.notFound}>Post not found.</p>}
+
       {post && (
-        <div key={post.id}>
-          <h2>{post.title}</h2>
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        <div key={post.id} className={styles.post}>
+          <h2 className={styles.title}>{post.title}</h2>
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
+
+          <h2 className={styles.commentsHeading}>Comments</h2>
+
           {isAuthenticated ? (
             <CommentForm
               postId={post.id}
@@ -47,13 +55,17 @@ export default function Post() {
               }}
             />
           ) : (
-            <Link to={"/login"}>
-              <button>Log in to leave a comment</button>
+            <Link to={"/login"} className={styles.loginLink}>
+              <button className={styles.loginButton}>
+                Log in to leave a comment
+              </button>
             </Link>
           )}
+
           <Comments comments={comments} setComments={setComments} />
         </div>
       )}
+
       {loading && <Loading />}
     </div>
   );
