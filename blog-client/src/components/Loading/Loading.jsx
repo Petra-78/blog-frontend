@@ -1,3 +1,9 @@
+import loading from "../../assets/loading.gif";
+
 export function Loading() {
-  return <p>Loading...</p>;
+  return (
+    <div>
+      <img src={loading} alt="Loading..." />
+    </div>
+  );
 }
