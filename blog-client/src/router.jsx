@@ -5,6 +5,8 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Posts from "./components/Posts/Posts";
 import Post from "./components/Posts/Post/Post";
+import AdminRedirect from "./components/AdminRedirect";
+import { useNavigate } from "react-router";
 
 const routes = [
   {
@@ -17,6 +19,10 @@ const routes = [
       { path: "posts/:id", element: <Post /> },
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Signup /> },
+      {
+        path: "/admin",
+        element: <AdminRedirect />,
+      },
     ],
   },
 ];
